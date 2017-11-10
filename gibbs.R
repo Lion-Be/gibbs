@@ -102,12 +102,13 @@ for(i in 1:n.iter){
   numerator1 <- sum(y-x1*coefs[2]-x2*coefs[3])/sigma2 + mu[1]/tau[1]^2
   denominator1 <- n/sigma2 + 1/tau[1]^2
   coefs[1] <- rnorm(1,numerator1/denominator1,sqrt(1/denominator1))
-  
+ 
+  # Sample from Conditional Posterior of V1
   numerator2 <- sum(x1*(y-coefs[1] - x2*coefs[3]))/sigma2 + mu[2]/tau[2]^2
   denominator2 <- sum(x1^2)/sigma2 + 1/tau[2]^2
   coefs[2] <- rnorm(1,numerator2/denominator2,sqrt(1/denominator2))
   
-  # Sample from Conditional Posterior of V1
+  # Sample from Conditional Posterior of V2
   numerator3 <- sum(x2*(y-coefs[1] - x1*coefs[2]))/sigma2 + mu[3]/tau[3]^2
   denominator3 <- sum(x2^2)/sigma2 + 1/tau[3]^2
   coefs[3] <- rnorm(1,numerator3/denominator3,sqrt(1/denominator3))
@@ -136,12 +137,12 @@ for(i in 1:n.iter){
   denominator1 <- n/sigma2.2 + 1/tau[1]^2
   initials[1] <- rnorm(1,numerator1/denominator1,sqrt(1/denominator1))
   
-  # Sample from Conditional Posterior of V2
+  # Sample from Conditional Posterior of V1
   numerator2 <- sum(x1*(y-initials[1] - x2*initials[3]))/sigma2.2 + mu[2]/tau[2]^2
   denominator2 <- sum(x1^2)/sigma2.2 + 1/tau[2]^2
   initials[2] <- rnorm(1,numerator2/denominator2,sqrt(1/denominator2))
   
-  # Sample from Conditional Posterior of V1
+  # Sample from Conditional Posterior of V2
   numerator3 <- sum(x2*(y-initials[1] - x1*initials[2]))/sigma2.2 + mu[3]/tau[3]^2
   denominator3 <- sum(x2^2)/sigma2.2 + 1/tau[3]^2
   initials[3] <- rnorm(1,numerator3/denominator3,sqrt(1/denominator3))
@@ -248,7 +249,7 @@ mcmc2 <- mcmc2[-c(1:burn),]
     }
   
   
-  # V2 - Chain 2
+  # V1 - Chain 2
   
     # Centering Values
     centered <- mcmc2[,2] - mean(mcmc2[,2])             
